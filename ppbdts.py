@@ -8,7 +8,8 @@
 #importar bibliotecas
 import mysql.connector
 import pymysql
-from PyQt5 import uic,QtWidgets
+from PyQt5 import uic,QtWidgets,QtGui
+from PyQt5.QtWidgets import *
 
 #criar a conexão com o servidor
 conexão = pymysql.connect(
@@ -17,27 +18,6 @@ conexão = pymysql.connect(
 	passwd = '123456',
 	database = "tsbd"
 )
-
-
-#Função Turma
-def função_turma():
-	turma = interface.txturm.text()
-	ano = interface.txnomealuno_5.text()
-	dataturma = interface.txnomealuno_6.text()
-
-
-	#Gravação na tabela
-	cursor = conexão.cursor()
-	comando_sql = "INSERT INTO turmas (Turma,Ano,Dataturma) VALUES (%s,%s,%s)"
-	dados_turma = (str(turma),str(ano),int(dataturma))
-	cursor.execute(comando_sql,dados_turma)
-	conexão.commit()
-
-	interface.txturm.clear()
-	interface.txnomealuno_5.clear()
-	interface.txnomealuno_6.clear()
-
-
 
 #função limpar no cadastro de alunos
 def função_limpar():
@@ -53,48 +33,89 @@ def função_limpar():
 	interface.comboBoxC.setCurrentIndex(0)
 	interface.comboBoxturma.setCurrentIndex(0)
 
+#função limpar na busca
+def função_limpar_busca():
+	interface.txnomealuno_2.clear()
+	interface.txnomealuno_3.clear()
+	interface.listWidget.clear()
+
 #função Salvar
 def função_salvar():
-	nome = interface.txnomealuno.text()
-	cpfcnpj = interface.txCPF_CNPJ.text()
-	endereço = interface.txendereco.text()
-	numero = interface.txnumero.text()
-	complemento = interface.txcomplemento.text()
-	bairro = interface.txbairro.text()
-	cidade = interface.txcidade.text()
-	cep = interface.txcep.text()
-	uf = interface.comboBoxUF.currentText()
-	camisa = interface.comboBoxC.currentText()
-	turmatx = interface.comboBoxturma.currentText()
+	if (interface.txnomealuno.text() != ""):
+		nome = interface.txnomealuno.text()
+		cpfcnpj = interface.txCPF_CNPJ.text()
+		endereço = interface.txendereco.text()
+		numero = interface.txnumero.text()
+		complemento = interface.txcomplemento.text()
+		bairro = interface.txbairro.text()
+		cidade = interface.txcidade.text()
+		cep = interface.txcep.text()
+		uf = interface.comboBoxUF.currentText()
+		camisa = interface.comboBoxC.currentText()
+		turmatx = interface.comboBoxturma.currentText()
+
+		#Gravação na tabela
+		cursor = conexão.cursor()
+		comando_sql = "INSERT INTO bdalunos (Nome,CPFCNPJ,Edereco,Numero,Complemento,Bairro,Cidade,CEP,Uf,Tcamisa,TTurma) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+		dados = (str(nome),str(cpfcnpj),str(endereço),str(numero),str(complemento),str(bairro),str(cidade),str(cep),str(uf),str(camisa),str(turmatx))
+		cursor.execute(comando_sql,dados)
+		conexão.commit()
+
+		#limpeza dos campos
+		interface.txnomealuno.clear()
+		interface.txCPF_CNPJ.clear()
+		interface.txendereco.clear()
+		interface.txnumero.clear()
+		interface.txcomplemento.clear()
+		interface.txbairro.clear()
+		interface.txcidade.clear()
+		interface.txcep.clear()
+		interface.comboBoxUF.setCurrentIndex(0)
+		interface.comboBoxC.setCurrentIndex(0)
+		interface.comboBoxturma.setCurrentIndex(0)
+
+	else:
+		QMessageBox.warning(None,"Atenção","Dados inválidos")
+
+#Função Turma
+def função_salvar_turma():
+	turma = interface.txturm.text()
+	ano = interface.txnomealuno_5.text()
+	dataturma = interface.txnomealuno_6.text()
+
 
 	#Gravação na tabela
 	cursor = conexão.cursor()
-	comando_sql = "INSERT INTO bdalunos (Nome,CPFCNPJ,Edereco,Numero,Complemento,Bairro,Cidade,CEP,Uf,Tcamisa,TTurma) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-	dados = (str(nome),str(cpfcnpj),str(endereço),str(numero),str(complemento),str(bairro),str(cidade),str(cep),str(uf),str(camisa),str(turmatx))
-	cursor.execute(comando_sql,dados)
+	comando_sql = "INSERT INTO turmas (Turma,Ano,Dataturma) VALUES (%s,%s,%s)"
+	dados_turma = (str(turma),str(ano),data(dataturma))
+	cursor.execute(comando_sql,dados_turma)
 	conexão.commit()
 
-	#limpeza dos campos
-	interface.txnomealuno.clear()
-	interface.txCPF_CNPJ.clear()
-	interface.txendereco.clear()
-	interface.txnumero.clear()
-	interface.txcomplemento.clear()
-	interface.txbairro.clear()
-	interface.txcidade.clear()
-	interface.txcep.clear()
-	interface.comboBoxUF.setCurrentIndex(0)
-	interface.comboBoxC.setCurrentIndex(0)
-	interface.comboBoxturma.setCurrentIndex(0)
+	interface.txturm.clear()
+	interface.txnomealuno_5.clear()
+	interface.txnomealuno_6.clear()
+
 
 def função_buscar():
-	if (interface.txnomealuno_2.text() != ""):
+	if (interface.txnomealuno_2.text() != "") and (interface.txnomealuno_3.text() == ""):
 		buscanome = interface.txnomealuno_2.text()
 		
 		cursor = conexão.cursor()
-		cursor.execute ("SELECT Nome,CPFCNPJ,Edereco,Numero,Complemento,Bairro,Cidade,CEP,Uf,Tcamisa,TTurma FROM bdalunos WHERE Nome LIKE '%%%s%%'" % buscanome)
-		print (cursor.fetchone())
-		
+		cursor.execute ("SELECT id,Nome,CPFCNPJ,Edereco,Numero,Complemento,Bairro,Cidade,CEP,Uf,Tcamisa,TTurma FROM bdalunos WHERE Nome LIKE '%%%s%%'" % buscanome)
+		dadosbuscados = cursor.fetchall()
+		cont = len(dadosbuscados)
+		for row in dadosbuscados:
+			interface.listWidget.addItem(str(row[1]))
+		'''linha = (0)
+		while cont <= cont:
+			for row in dadosbuscados:
+			interface.listWidget.insertItem(0, QListWidgetItem (str(row[1])))
+			linha = + (1)
+			pass'''
+
+
+		'''for row in dadosbuscados:
+			print (row[1])'''
 
 		#Leitura dos dados do banco
 		#cursor = conexão.cursor()
@@ -105,7 +126,7 @@ def função_buscar():
 
 
 
-	elif (interface.txnomealuno_3.text() != ""):
+	elif (interface.txnomealuno_3.text() != "") and (interface.txnomealuno_2.text() == ""):
 		buscaturma = interface.txnomealuno_3.text()
 
 		cursor = conexão.cursor()
@@ -118,13 +139,18 @@ def função_buscar():
 		cursor.execute(comando_sql)
 		dados_lidos = cursor.fetchall()
 
+	elif (interface.txnomealuno_2.text() != "") and (interface.txnomealuno_3.text() != ""):
+		print("aaaaaa")
+
 	else:
-		print ("digitar alguma pesquisa")
+		QMessageBox.information(None,"Atenção","Digite alguma pesquisa")
 
 
 def função_editar():
-	interfacedit.show()
 
+	nomelista = interface.listWidget.currentRow()
+	nomelistado = interface.listWidget.item(nomelista).text()
+	interfacedit.show()
 
 
 #improtar a interface .ui
@@ -136,13 +162,19 @@ interface.salvar01.clicked.connect(função_salvar)
 interface.limpar01.clicked.connect(função_limpar)
 interface.btedita.clicked.connect(função_editar)
 interface.btpesquisa.clicked.connect(função_buscar)
-interface.salvar01_2.clicked.connect(função_turma)
+interface.salvar01_2.clicked.connect(função_salvar_turma)
+interface.btlimparbusca.clicked.connect(função_limpar_busca)
+
+
+#ações enter
+interface.txnomealuno_2.returnPressed.connect(função_buscar)
+interface.txnomealuno_3.returnPressed.connect(função_buscar)
+
 
 cursor = conexão.cursor()
 cursor.execute("SELECT Turma FROM turmas")
 teste1 = cursor.fetchall()
 interface.comboBoxturma.addItem(str(teste1))
-
 
 #executar interface
 interface.show()
