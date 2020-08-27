@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>753</width>
-    <height>362</height>
+    <height>363</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -64,7 +64,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab1">
      <attribute name="title">
@@ -788,7 +788,7 @@ selection-color: rgb(228, 240, 255);</string>
        <string>Turma:</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="txturm">
+     <widget class="QLineEdit" name="lineEdit">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -937,6 +937,95 @@ selection-color: rgb(228, 240, 255);</string>
      <widget class="QPushButton" name="salvar01_3">
       <property name="geometry">
        <rect>
+        <x>590</x>
+        <y>280</y>
+        <width>71</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(139, 170, 255);</string>
+      </property>
+      <property name="text">
+       <string>Excluir</string>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="listWidget_2">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>30</y>
+        <width>256</width>
+        <height>241</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_17">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>10</y>
+        <width>161</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>Turmas existentes:</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="resgatardadosturma">
+      <property name="geometry">
+       <rect>
+        <x>460</x>
+        <y>280</y>
+        <width>121</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <pointsize>10</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(139, 170, 255);</string>
+      </property>
+      <property name="text">
+       <string>Resgatar Dados</string>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="salvar01_4">
+      <property name="geometry">
+       <rect>
         <x>80</x>
         <y>160</y>
         <width>61</width>
@@ -955,7 +1044,7 @@ selection-color: rgb(228, 240, 255);</string>
        <string notr="true">background-color: rgb(139, 170, 255);</string>
       </property>
       <property name="text">
-       <string>Excluir</string>
+       <string>Limpar</string>
       </property>
       <property name="checkable">
        <bool>false</bool>
@@ -1006,7 +1095,7 @@ selection-color: rgb(228, 240, 255);</string>
        <string>Nome:</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="btlimpar">
+     <widget class="QPushButton" name="btlimparbusca">
       <property name="geometry">
        <rect>
         <x>170</x>
@@ -1087,19 +1176,6 @@ selection-color: rgb(228, 240, 255);</string>
        <bool>false</bool>
       </property>
      </widget>
-     <widget class="QListView" name="listView">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>100</y>
-        <width>701</width>
-        <height>201</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(255, 255, 255);</string>
-      </property>
-     </widget>
      <widget class="QLineEdit" name="txnomealuno_3">
       <property name="geometry">
        <rect>
@@ -1138,6 +1214,19 @@ selection-color: rgb(228, 240, 255);</string>
       </property>
       <property name="text">
        <string>Turma:</string>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="listWidget">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>100</y>
+        <width>711</width>
+        <height>211</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
       </property>
      </widget>
     </widget>
